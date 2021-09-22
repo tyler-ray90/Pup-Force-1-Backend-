@@ -100,6 +100,13 @@ app.post('/food', async (req, res) => {
                 notes: req.body.notes ?? oldInfo.notes,
             };
         } else {
+            if (!req.body.animal || !req.body.edible) {
+                res.status(400).json({
+                    message:
+                        'you need to defined animal name, food and whether or not it is edible at minimum',
+                });
+                return;
+            }
             existingFood.data.push({
                 animal: req.body.animal,
                 edible: req.body.edible,
